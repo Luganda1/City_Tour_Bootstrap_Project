@@ -1,0 +1,49 @@
+{% include 'header.html' %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('../static/assets/img/home-bg.jpeg')">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="site-heading">
+          <h1>City Tour Guide</h1>
+          <span class="subheading">This is tour guide for all the cities i wanna visit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+       {% for blog_post in post %}
+        <div class="post-preview">
+            <h2 class="post-title">{{blog_post["city"].title()}}</h2>
+            <a href="{{url_for('blog', item=blog_post.id)}}">
+<!--            <p class="post-meta"><strong>{{blog_post["name"].title()}}</strong></p>-->
+            <img src="{{blog_post.img}}" width="350px"  alt="{{blog_post.city}}">
+            </a>
+            <p class="metabo">{{blog_post.subtitles}}</p>
+             <p class="post-meta">Posted by
+                 <a href="#"><em>{{blog_post.author}}</em></a>
+            on {{blog_post.date}}</p>
+
+        </div>
+      <hr>
+      {% endfor %}
+
+        <br>
+      <!-- Pager -->
+      <div class="clearfix">
+        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+{% include 'footer.html' %}
