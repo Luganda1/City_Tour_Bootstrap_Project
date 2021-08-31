@@ -1,13 +1,14 @@
 {% include 'header.html' %}
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('../static/assets/img/home-bg.jpeg')">
+<header class="masthead" style="background-image: url('../static/assets/img/citynet.jpg')">
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="site-heading">
-          <h1>City Tour Guide</h1>
+          <h1>
+              City Tour Guide</h1>
           <span class="subheading">This is tour guide for all the cities i wanna visit</span>
         </div>
       </div>
@@ -22,24 +23,36 @@
        {% for blog_post in post %}
         <div class="post-preview">
             <h2 class="post-title">{{blog_post["city"].title()}}</h2>
-            <a href="{{url_for('blog', item=blog_post.id)}}">
+            <a href="{{url_for('blog', id=blog_post.id)}}">
 <!--            <p class="post-meta"><strong>{{blog_post["name"].title()}}</strong></p>-->
-            <img src="{{blog_post.img}}" width="350px"  alt="{{blog_post.city}}">
+                <img src="{{blog_post.img}}" width="350px"  alt="{{blog_post.city}}">
             </a>
             <p class="metabo">{{blog_post.subtitles}}</p>
              <p class="post-meta">Posted by
-                 <a href="#"><em>{{blog_post.author}}</em></a>
-            on {{blog_post.date}}</p>
+                 <a href="#"><em>{{admin}}</em></a>
+                 on {{blog_post.date}}
+
+                <a href="{{url_for('delete', id=blog_post.id)}}">
+                {% if current_user.id == 1 %}
+                    ✘
+                {% endif %}
+                </a>
+
+
+            </p>
 
         </div>
-      <hr>
       {% endfor %}
+        {% if current_user.id == 1 %}
+              <hr>
 
-        <br>
-      <!-- Pager -->
-      <div class="clearfix">
-        <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-      </div>
+                <br>
+              <!-- Pager -->
+          <div class="clearfix">
+            <a class="btn btn-primary float-right" href="{{url_for('new_post')}}">Create Posts &rarr;</a>
+          </div>
+        {% endif %}
+
     </div>
   </div>
 </div>
